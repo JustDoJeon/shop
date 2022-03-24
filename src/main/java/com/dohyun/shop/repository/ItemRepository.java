@@ -23,6 +23,7 @@ public class ItemRepository {
     }
 
     public Item findOne(Long id){
+        System.out.println("id : " + id);
         return em.find(Item.class, id);
     }
 

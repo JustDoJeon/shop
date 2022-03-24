@@ -1,9 +1,6 @@
 package com.dohyun.shop.service;
 
-import com.dohyun.shop.domain.Delivery;
-import com.dohyun.shop.domain.Member;
-import com.dohyun.shop.domain.Order;
-import com.dohyun.shop.domain.OrderItem;
+import com.dohyun.shop.domain.*;
 import com.dohyun.shop.domain.item.Item;
 import com.dohyun.shop.repository.ItemRepository;
 import com.dohyun.shop.repository.MemberRepository;
@@ -31,9 +28,11 @@ public class OrderService {
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
 
+
         //배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress());
+        delivery.setStatus(DeliveryStatus.READY);
 
         //주문상품 생성
         OrderItem orderItem = OrderItem.createOrderItem(item,item.getPrice(),count);
