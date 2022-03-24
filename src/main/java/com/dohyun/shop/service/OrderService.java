@@ -5,6 +5,7 @@ import com.dohyun.shop.domain.item.Item;
 import com.dohyun.shop.repository.ItemRepository;
 import com.dohyun.shop.repository.MemberRepository;
 import com.dohyun.shop.repository.OrderRepository;
+import com.dohyun.shop.repository.OrderSearch;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class OrderService {
 
     //주문
     @Transactional
-    public Long order(Long memberId, Long itemId , int count){
+    public Long order(Long memberId, Long itemId, int count) {
         //엔티티 조회
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
@@ -35,7 +36,7 @@ public class OrderService {
         delivery.setStatus(DeliveryStatus.READY);
 
         //주문상품 생성
-        OrderItem orderItem = OrderItem.createOrderItem(item,item.getPrice(),count);
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
 
         //주문생성
         Order order = Order.createOrder(member, delivery, orderItem);
@@ -47,15 +48,15 @@ public class OrderService {
 
     // 취소
     @Transactional
-    public void cancelOrder(Long orderId){
+    public void cancelOrder(Long orderId) {
         Order order = orderRepository.findOne(orderId);
         order.cancel();
     }
 
 
     //검색
-/*    public List<Order> findOrders(OrderSearch orderSearch){
-*        return orderRepository.findAll(orderSearch);
-*    }
-*/
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
+    }
+
 }

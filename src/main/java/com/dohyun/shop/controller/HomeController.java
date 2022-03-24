@@ -1,4 +1,4 @@
-package com.dohyun.shop.web;
+package com.dohyun.shop.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
